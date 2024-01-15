@@ -21,8 +21,9 @@ if args.token is None:
     print(token)
 
 memories = berealApi.get_memfeed(token)[:365]
-image_urls = [mem["secondary"]["url"] for mem in memories]
-splicer.download_photos(image_urls)
+primary_urls = [mem["primary"]["url"] for mem in memories]
+secondary_urls = [mem["secondary"]["url"] for mem in memories]
+splicer.download_photos(zip(primary_urls, secondary_urls))
 splicer.create_video()
 
 
